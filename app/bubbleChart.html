@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie Chart</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+    </head>
+    <body>
+      <a href="charts.html" class="previous">&laquo; Previous</a>
+      <br>
+      <br>
+        
+        <div id="myChart" style="max-width:800px; height:500px"></div>
+
+        <script>
+          
+          google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawSeriesChart);
+
+    function drawSeriesChart() {
+
+
+        
+        let arr = localStorage.getItem('info');
+        
+        let res = JSON.parse(arr);
+
+
+      var data = google.visualization.arrayToDataTable([
+            ['File Type', 'File Size', 'File Count', 'Last Modified'],
+            [res[0]["mood"] , res[0]["size"], res[0]["total"], res[0]["lastModified"]],
+            [res[1]["mood"] , res[1]["size"], res[1]["total"], res[1]["lastModified"]],
+            [res[2]["mood"] , res[2]["size"], res[2]["total"], res[2]["lastModified"]],
+            [res[3]["mood"] , res[3]["size"],  res[3]["total"], res[3]["lastModified"]],
+            [res[4]["mood"] , res[4]["size"], res[4]["total"], res[4]["lastModified"]],
+            [res[5]["mood"] , res[5]["size"], res[5]["total"], res[5]["lastModified"]  ],
+            [res[6]["mood"] , res[6]["size"], res[6]["total"], res[6]["lastModified"]],
+            [res[7]["mood"] , res[7]["size"], res[7]["total"], res[7]["lastModified"]],
+            [res[8]["mood"] , res[8]["size"], res[8]["total"], res[8]["lastModified"]],
+      ]);
+
+      var options = {
+        title: 'File Count vs File Size of different files types.' +
+          ' X=File Size, Y=File Count, Bubble color=Type',
+        hAxis: {title: 'File Size'},
+        vAxis: {title: 'File Count'},
+        bubble: {textStyle: {fontSize: 11}}
+      };
+
+      var chart = new google.visualization.BubbleChart(document.getElementById('myChart'));
+      chart.draw(data, options);
+   
+    }
+    
+
+            
+    </script>
+
+<script src="./js/index.js"></script>
+</body>
+</html>

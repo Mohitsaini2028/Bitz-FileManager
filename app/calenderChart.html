@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie Chart</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+    </head>
+    <body>
+      <a href="charts.html" class="previous">&laquo; Previous</a>
+      <br>
+      <br>
+        
+        <div id="myChart" style="max-width:800px; height:500px"></div>
+
+        <script>
+                google.charts.load("current", {packages:["calendar"]});
+      google.charts.setOnLoadCallback(drawChart);
+
+   function drawChart() {
+     
+     let arr = localStorage.getItem('info');
+     
+     let res = JSON.parse(arr);
+
+
+       var dataTable = new google.visualization.DataTable();
+       dataTable.addColumn({ type: 'date', id: 'Date' });
+       dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+       
+      //  dataTable.addColumn({ type: 'string', id: 'Type' });
+
+      var dateArray = []; 
+      
+      for(var i=0; i<=8; i++){
+        console.log("working" + i, new Date(res[i]["lastModified"]).getDate());
+          if(typeof new Date(res[i]["lastModified"])=='object'){
+          
+            dateArray.push([ new Date(new Date(res[i]["lastModified"]).getFullYear(), new Date(res[i]["lastModified"]).getMonth(), new Date(res[i]["lastModified"]).getDate()), res[i]["total"] ]);
+           
+          }
+      }
+
+       dataTable.addRows(dateArray);
+
+       var chart = new google.visualization.Calendar(document.getElementById('myChart'));
+
+       var options = {
+         title: "Last Modified",
+         height: 350,
+       };
+
+       chart.draw(dataTable, options);
+   }
+          
+    
+   
+            
+    </script>
+
+<script src="./js/index.js"></script>
+</body>
+</html>

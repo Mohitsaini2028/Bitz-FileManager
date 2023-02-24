@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Plot</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+    </head>
+    <body>
+      <a href="charts.html" class="previous">&laquo; Previous</a>
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+        <script>
+          
+          
+          
+          function updateBar(){
+
+            let arr = localStorage.getItem('info');
+        
+            let res = JSON.parse(arr);
+
+              console.log("Bar Plot Working");
+
+              var xValues = [ res[0]["mood"], res[1]["mood"], res[2]["mood"], res[3]["mood"], res[4]["mood"], res[5]["mood"], res[6]["mood"], res[7]["mood"], res[8]["mood"]];
+              var yValues = [ res[0]["size"], res[1]["size"], res[2]["size"], res[3]["size"], res[4]["size"], res[5]["size"], res[6]["size"], res[7]["size"], res[8]["size"]];
+              var barColors = [ res[0]["shade"], res[1]["shade"], res[2]["shade"], res[3]["shade"], res[4]["shade"], res[5]["shade"], res[6]["shade"], res[7]["shade"], res[8]["shade"]];
+
+              new Chart("myChart", {
+                type: "bar",
+                data: {
+                  labels: xValues,
+                  datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                  }]
+                },
+                options: {
+                  legend: {display: false},
+                  title: {
+                    display: true,
+                    text: "Fize Size in KB Barplot"
+                  }
+                }
+              });
+            }
+            
+
+            updateBar();
+            </script>
+
+<script src="./js/index.js"></script>
+</body>
+</html>

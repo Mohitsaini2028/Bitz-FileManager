@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Graph</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+    </head>
+    <body>
+      <a href="charts.html" class="previous">&laquo; Previous</a>
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+        <script>
+          
+          
+          
+          function updateBar(){
+
+            let arr = localStorage.getItem('info');
+
+            let minSize = 0, maxSize = 0, minCount = 0, maxCount = 0;
+
+            // let maxi
+            let res = JSON.parse(arr);
+
+              var xyValues = [];
+
+              for(var k=0; k<=8; k++){
+
+                res[0]["total"] 
+
+                xyValues.push({x:res[k]["total"], y:res[k]["size"]});
+
+                minCount = Math.min(res[k]["total"], minCount);
+                maxCount = Math.max(res[k]["total"], maxCount);
+
+                minSize = Math.min(res[k]["size"], minSize);
+                maxSize = Math.max(res[k]["size"], maxSize);
+
+              }
+
+              var xValues = [ res[0]["total"], res[1]["total"], res[2]["total"], res[3]["total"], res[4]["total"], res[5]["total"], res[6]["total"], res[7]["total"], res[8]["total"]];
+              var yValues = [ res[0]["size"], res[1]["size"], res[2]["size"], res[3]["size"], res[4]["size"], res[5]["size"], res[6]["size"], res[7]["size"], res[8]["size"]];
+
+              new Chart("myChart", {
+                type: "line",
+                data: {
+                  labels: xValues,
+                  datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues
+                  }]
+                },
+                options: {
+                  legend: {display: false},
+                  scales: {
+                    yAxes: [{ticks: {min: minSize, max:maxSize}}],
+                  },
+                  title: {
+                    display: true,
+                    text: "File type Count vs Size"
+                  }
+                }
+              });
+
+          //   new Chart("myChart", {
+          //   type: "scatter",
+          //   data: {
+          //     datasets: [{
+          //       pointRadius: 4,
+          //       pointBackgroundColor: "rgb(0,0,255)",
+          //       data: xyValues,
+          //     }]
+          //   },
+          //   options: {
+          //     legend: {display: false},
+          //     scales: {
+          //       xAxes: [{ticks: {min: minCount, max:minCount}}],
+          //       yAxes: [{ticks: {min: minSize, max:maxSize}}],
+          //     }
+          //   }
+          // });
+        }
+            updateBar();
+            </script>
+
+<script src="./js/index.js"></script>
+</body>
+</html>
